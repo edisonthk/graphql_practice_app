@@ -1,0 +1,8 @@
+USE react_go_development;
+
+CREATE TABLE IF NOT EXISTS users
+(
+    id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
+)

@@ -1,0 +1,20 @@
+fragment userFields on User {
+  id
+	name
+}
+
+query allUsers {
+	allUsers {
+		...userFields
+	}
+}
+
+mutation createUser(
+  $name: String!
+) {
+  createUser(
+    input: { name: $name}
+  ) {
+    ...userFields
+  }
+}
