@@ -13,6 +13,10 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) 
 	return r.createUser(ctx, input)
 }
 
+func (r *mutationResolver) UpdateUser(ctx context.Context, input model.UpdateUser) (*model.User, error) {
+	return r.updateUser(ctx, input)
+}
+
 func (r *queryResolver) AllUsers(ctx context.Context) ([]*model.User, error) {
 	return r.getUsers(ctx)
 }
