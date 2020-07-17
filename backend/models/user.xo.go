@@ -5,12 +5,15 @@ package models
 
 import (
 	"errors"
+	"fmt"
 )
 
 // User represents a row from 'react_go_development.users'.
 type User struct {
 	ID   int    `json:"id"`   // id
 	Name string `json:"name"` // name
+	InvestmentExperience string `json:"investment_experience"`
+	Income               string `json:"income"`
 
 	// xo fields
 	_exists, _deleted bool
@@ -78,12 +81,15 @@ func (u *User) Update(db XODB) error {
 
 	// sql query
 	const sqlstr = `UPDATE react_go_development.users SET ` +
-		`name = ?` +
+		`name = ?,` +
+		`investment_experience = ?,` +
+		`income = ?` +
 		` WHERE id = ?`
 
+	fmt.Printf("InvestmentExperience: %s\n",u.InvestmentExperience)
 	// run query
-	XOLog(sqlstr, u.Name, u.ID)
-	_, err = db.Exec(sqlstr, u.Name, u.ID)
+	XOLog(sqlstr, u.Name, u.InvestmentExperience, u.Income ,u.ID)
+	_, err = db.Exec(sqlstr, u.Name, u.InvestmentExperience, u.Income, u.ID)
 	return err
 }
 
@@ -134,7 +140,7 @@ func UserByID(db XODB, id int) (*User, error) {
 
 	// sql query
 	const sqlstr = `SELECT ` +
-		`id, name ` +
+		`id, name, investment_experience, income ` +
 		`FROM react_go_development.users ` +
 		`WHERE id = ?`
 
@@ -144,7 +150,7 @@ func UserByID(db XODB, id int) (*User, error) {
 		_exists: true,
 	}
 
-	err = db.QueryRow(sqlstr, id).Scan(&u.ID, &u.Name)
+	err = db.QueryRow(sqlstr, id).Scan(&u.ID, &u.Name, &u.InvestmentExperience, &u.Income)
 	if err != nil {
 		return nil, err
 	}

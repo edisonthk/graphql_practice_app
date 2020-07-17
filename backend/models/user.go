@@ -5,7 +5,7 @@ func Users(db XODB) ([]*User, error) {
 
 	// sql query
 	const sqlstr = `SELECT ` +
-		`id, name ` +
+		`id, name,investment_experience,income ` +
 		`FROM users `
 
 	// run query
@@ -23,7 +23,7 @@ func Users(db XODB) ([]*User, error) {
 		user := User{}
 
 		// scan
-		err = q.Scan(&user.ID, &user.Name)
+		err = q.Scan(&user.ID, &user.Name, &user.InvestmentExperience, &user.Income)
 		if err != nil {
 			return nil, err
 		}
