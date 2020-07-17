@@ -2,7 +2,7 @@
 
 ## Setup
 ```
-cd infrastructure && docker-compose up
+docker-compose -f infrastructure/docker-compose.yml up
 ```
 
 ## Usage
