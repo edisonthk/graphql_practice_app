@@ -2,6 +2,8 @@
 type User {
 	id: ID!
 	name: String!
+    investment_experience: String!
+    income: String!
 }
 
 type Query {
@@ -13,6 +15,14 @@ input NewUser {
 	name: String!
 }
 
+input UpdateUser {
+    id: ID!
+    name: String!
+    investment_experience: String!
+    income: String!
+}
+
 type Mutation {
 	createUser(input: NewUser!): User!
+    updateUser(input: UpdateUser!): User!
 }
