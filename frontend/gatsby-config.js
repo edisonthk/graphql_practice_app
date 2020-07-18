@@ -13,6 +13,7 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    `gatsby-plugin-styled-components`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -36,6 +37,9 @@ module.exports = {
         fieldName: "golangData",
         // Url to query from
         url: "http://backend:8080/graphql",
+
+        // refetch interval in seconds
+        refetchInterval: 1,
       },
     },
     `gatsby-plugin-typescript`,

@@ -8,12 +8,12 @@ import { gql } from '@apollo/client'
 import client from "client";
 
 const updateUserQuery = gql`
-  mutation UpdateUser($name: String!,$investment_experience: String!, $income: String!) {
+  mutation UpdateUser($name: String!) {
     updateUser(input: {
       id: 1,
       name: $name,
-      investment_experience: $investment_experience,
-      income: $income,
+      investment_experience: "",
+      income: "",
     }) {
       id
       name
@@ -24,19 +24,16 @@ const updateUserQuery = gql`
 `;
 
 const onSubmit = (event) => {
-  const formData = new FormData(event.target);
-  
   event.preventDefault();
+  const formData = new FormData(event.target);
 
   client.mutate({
     mutation: updateUserQuery,
     variables: {
       name: formData.get('name'),
-      investment_experience: formData.get('investment_experience'),
-      income: formData.get('income'),
     },
   }).then(res => {
-    navigate("/page-3")
+    navigate("/page-2")
   });
 };
 
@@ -53,24 +50,18 @@ export const pageQuery = graphql`
   }
 `
 
-
-const Page2 = ({data}) => {
+const Page1 = ({data}) => {
 
   return (
     <Layout>
-      <SEO title="会員登録 - ページ２" />
-      <h1>適合性確認</h1>
-      <form onSubmit={(event) => onSubmit(event)}>
-        <input type="hidden" name="name" value={data.golangData.getUserByID.name} />
-        <FormControl 
-          label="投資経験"
-          name="investment_experience"
-          defaultValue={data.golangData.getUserByID.investment_experience} />
+      <SEO title="会員登録 - ページ１" />
+      <h1>情報入力</h1>
 
+      <form onSubmit={(event) => onSubmit(event)}>
         <FormControl 
-          label="収入"
-          name="income"
-          defaultValue={data.golangData.getUserByID.income} />
+          label="名前"
+          name="name"
+          defaultValue={data.golangData.getUserByID.name} />
 
         <button type="submit">送信</button>
       </form>
@@ -79,4 +70,4 @@ const Page2 = ({data}) => {
   );
 }
 
-export default Page2
+export default Page1

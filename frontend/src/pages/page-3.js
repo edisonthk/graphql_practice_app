@@ -1,9 +1,8 @@
 import React from "react"
-import { graphql, navigate } from "gatsby"
+import { graphql, navigate, Link } from "gatsby"
 
 import Layout from "components/layout"
 import SEO from "components/seo"
-import FormControl from "components/FormControl"
 import { gql } from '@apollo/client'
 import client from "client";
 
@@ -32,8 +31,6 @@ const onSubmit = (event) => {
     mutation: updateUserQuery,
     variables: {
       name: formData.get('name'),
-      investment_experience: formData.get('investment_experience'),
-      income: formData.get('income'),
     },
   }).then(res => {
     navigate("/page-3")
@@ -53,26 +50,23 @@ export const pageQuery = graphql`
   }
 `
 
-
 const Page2 = ({data}) => {
 
   return (
     <Layout>
-      <SEO title="会員登録 - ページ２" />
-      <h1>適合性確認</h1>
+      <SEO title="会員登録 - ページ３" />
+      <h1>入力情報確認</h1>
+
       <form onSubmit={(event) => onSubmit(event)}>
-        <input type="hidden" name="name" value={data.golangData.getUserByID.name} />
-        <FormControl 
-          label="投資経験"
-          name="investment_experience"
-          defaultValue={data.golangData.getUserByID.investment_experience} />
-
-        <FormControl 
-          label="収入"
-          name="income"
-          defaultValue={data.golangData.getUserByID.income} />
-
-        <button type="submit">送信</button>
+        <table>
+          <tbody>
+            <tr><td>名前</td><td>{data.golangData.getUserByID.name}</td></tr>
+            <tr><td>投資経験</td><td>{data.golangData.getUserByID.investment_experience}</td></tr>
+            <tr><td>収入</td><td>{data.golangData.getUserByID.income}</td></tr>
+          </tbody>
+        </table>
+        
+        <Link to="/">完了しました</Link> <br />
       </form>
 
     </Layout>

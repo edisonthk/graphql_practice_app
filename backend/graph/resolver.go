@@ -42,6 +42,8 @@ func (r *Resolver) getUserByID(ctx context.Context, userID *int) (*model.User, e
 	return &model.User{
 		ID: user.ID,
 		Name: user.Name,
+		InvestmentExperience: user.InvestmentExperience,
+		Income: user.Income,
 	}, nil
 }
 
